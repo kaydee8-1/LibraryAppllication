@@ -1,21 +1,49 @@
-public class Book {
-    String title;
-    String author;
-    int releaseDate;
-    int pages;
-    String publisher;
-    String isbn;
+package pl.library.model;
 
-    public Book(String title, String author, int releaseDate, int pages, String publisher, String isbn) {
-        this.title = title;
+public class Book extends Publication {
+    private String author;
+    private int pages;
+    private String isbn;
+
+    public static int counter = 0;
+
+    public Book(String title, String author, int year, int pages, String publisher, String isbn) {
+        super(title, year, publisher);
         this.author = author;
-        this.releaseDate = releaseDate;
         this.pages = pages;
-        this.publisher = publisher;
+        this.isbn = isbn;
+        counter++;
+    }
+
+    public String getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(String author) {
+        this.author = author;
+    }
+    public int getPages() {
+        return pages;
+    }
+
+    public void setPages(int pages) {
+        this.pages = pages;
+    }
+    public String getIsbn() {
+        return isbn;
+    }
+
+    public void setIsbn(String isbn) {
         this.isbn = isbn;
     }
 
+    @Override
     public void printInfo() {
-        System.out.println(title + ";" + author  + ";" + releaseDate + ";" + pages + ";" + publisher + ";" + isbn + ";");
+        String info = getTitle() + "; " + author  + "; " + getYear() + "; " + pages + "; " +
+                super.getPublisher();
+        if (isbn != null) {
+            info += "; " + isbn;
+        }
+        System.out.println(info);
     }
 }
