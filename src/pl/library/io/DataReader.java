@@ -1,5 +1,7 @@
 package pl.library.io;
 import java.util.Scanner;
+
+import pl.library.logic.Option;
 import pl.library.model.Book;
 import pl.library.model.Magazine;
 
@@ -56,6 +58,13 @@ public class DataReader {
         scanner.nextLine();
         return intNumber;
     }
+
+    public int getOption() {
+        int userInput = scanner.nextInt();
+        scanner.nextLine();
+        return userInput;
+    }
+
     public void close() {
         scanner.close();
     }

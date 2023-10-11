@@ -9,19 +9,12 @@ public class LibraryControl {
     private DataReader dataReader = new DataReader();
     private Library library = new Library();
 
-    private final static int EXIT = 0;
-    private final static int ADD_BOOK = 1;
-    private final static int ADD_MAGAZINE = 2;
-    private final static int PRINT_BOOKS = 3;
-    private final static int PRINT_MAGAZINES = 4;
-
-
     public void controlLoop() {
-        int option;
+        Option option;
 
         do {
             printOptions();
-            option = dataReader.getInt();
+            option = Option.createFromInt(dataReader.getOption());
 
             switch (option) {
                 case EXIT: exit(); break;
@@ -33,9 +26,17 @@ public class LibraryControl {
                     addMagazine(); break;
                 case PRINT_MAGAZINES:
                     printMagazines(); break;
+                case PRINT_ALL_PUBLICATIONS:
+                    printAllPublications(); break;
                 default: System.out.println("Podana liczba nie pasuje");
             }
-        } while (option!= EXIT);
+        } while (option!= Option.EXIT);
+    }
+
+    private void printOptions() {
+        System.out.println("\nWybierz opcję: ");
+        for(Option option: Option.values())
+            System.out.println(option.toString());
     }
 
     private void addBook() {
@@ -55,18 +56,11 @@ public class LibraryControl {
     private void printMagazines() {
         library.printAllMagazines();
     }
+    private void printAllPublications() {library.printAllPublications();}
 
     public void exit()
     {
         System.out.println("Koniec programu papa");
         dataReader.close();
-    }
-    private void printOptions() {
-        System.out.println("Wybierz opcję: ");
-        System.out.println(EXIT + " - wyjście z programu");
-        System.out.println(ADD_BOOK + " - dodanie nowej książki");
-        System.out.println(ADD_MAGAZINE+ " - dodanie nowego magazynu");
-        System.out.println(PRINT_BOOKS + " - wyświetl dostępne książki");
-        System.out.println(PRINT_MAGAZINES + " - wyświetl dostępne magazyny");
     }
 }
