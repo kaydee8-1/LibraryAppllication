@@ -10,7 +10,7 @@ public class Book extends Publication {
     public Book(String title, String author, int year, int pages, String publisher, String isbn) {
         super(title, year, publisher);
         this.author = author;
-        this.pages = pages;
+        setPages(pages);
         this.isbn = isbn;
         counter++;
     }
@@ -27,6 +27,9 @@ public class Book extends Publication {
     }
 
     public void setPages(int pages) {
+        if (pages < 0) {
+            throw new IllegalArgumentException("Value cannot be negative");
+        }
         this.pages = pages;
     }
     public String getIsbn() {

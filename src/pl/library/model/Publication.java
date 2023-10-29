@@ -1,13 +1,19 @@
 package pl.library.model;
 
-abstract class Publication {
+import java.util.Calendar;
+import java.util.InputMismatchException;
+import java.time.Year;
+
+public abstract class Publication {
     private String title;
     private int year;
     private String publisher;
+    private Calendar cal = Calendar.getInstance();
+    int currentYear = cal.get(Calendar.YEAR);
 
     public Publication(String title,  int releaseDate, String publisher) {
         this.title = title;
-        this.year = releaseDate;
+        setYear(releaseDate);
         this.publisher = publisher;
     }
 
@@ -24,6 +30,8 @@ abstract class Publication {
     }
 
     public void setYear(int year) {
+        if (year < 0 || year > currentYear)
+            throw new ArgumentOutsideRangeException("Year", 0, currentYear);
         this.year = year;
     }
 

@@ -1,4 +1,6 @@
-package pl.library.logic;
+package pl.library.app;
+
+import pl.library.exceptions.NoSuchOptionException;
 
 public enum Option {
     EXIT(0,"Wyjście z programu"),
@@ -8,8 +10,8 @@ public enum Option {
     PRINT_MAGAZINES(4, "wyświetl dostępne magazyny"),
     PRINT_ALL_PUBLICATIONS(5, "wyświetl wszystkie dostępne publikacje");
 
-    private int optionNumber;
-    private String description;
+    private final int optionNumber;
+    private final String description;
 
     Option(int optionNumber, String description) {
         this.optionNumber = optionNumber;
@@ -18,6 +20,7 @@ public enum Option {
 
     public int getOptionNumber() {
         return optionNumber;
+
     }
 
     public String getDescription() {
@@ -27,7 +30,11 @@ public enum Option {
         return getOptionNumber() + " - " + name() + "(" +getDescription() + ")";
     }
 
-    public static Option createFromInt(int option) {
-        return Option.values()[option];
+    public static Option createFromInt(int option) throws NoSuchOptionException {
+        try {
+            return Option.values()[option];
+        } catch (ArrayIndexOutOfBoundsException e) {
+            throw new NoSuchOptionException("No option with ID " + option);
+        }
     }
 }

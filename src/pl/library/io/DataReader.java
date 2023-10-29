@@ -1,68 +1,84 @@
 package pl.library.io;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
-import pl.library.logic.Option;
 import pl.library.model.Book;
 import pl.library.model.Magazine;
 
 public class DataReader {
     private Scanner scanner = new Scanner(System.in);
+    private ConsolePrinter consolePrinter;
+
+    public DataReader(ConsolePrinter printer) {
+        this.consolePrinter = printer;
+    }
 
     public Book readAndCreateBook() {
-        System.out.println("Tytuł: ");
+        consolePrinter.printLine("Tytuł: ");
         String title = scanner.nextLine();
 
-        System.out.println("Autor: ");
+        consolePrinter.printLine("Autor: ");
         String author = scanner.nextLine();
 
-        System.out.println("Wydawnictwo: ");
+        consolePrinter.printLine("Wydawnictwo: ");
         String publisher = scanner.nextLine();
 
-        System.out.println("ISBN: ");
+        consolePrinter.printLine("ISBN: ");
         String isbn = scanner.nextLine();
 
-        System.out.println("Rok wydania: ");
+        consolePrinter.printLine("Rok wydania: ");
         int releaseDate = getInt();
 
-        System.out.println("Ilość stron: ");
+        consolePrinter.printLine("Ilość stron: ");
         int pages = getInt();
 
         return new Book(title, author, releaseDate, pages, publisher, isbn);
     }
 
     public Magazine readAndCreateMagazine() {
-        System.out.println("Tytuł: ");
+        consolePrinter.printLine("Tytuł: ");
         String title = scanner.nextLine();
 
-        System.out.println("Wydawnictwo: ");
+        consolePrinter.printLine("Wydawnictwo: ");
         String publisher = scanner.nextLine();
 
-        System.out.println("Rok wydania: ");
+        consolePrinter.printLine("Rok wydania: ");
         int year = getInt();
 
-        System.out.println("Miesiąc wydania: ");
+        consolePrinter.printLine("Miesiąc wydania: ");
         int month = getInt();
 
-        System.out.println("Dzień wydania: ");
+        consolePrinter.printLine("Dzień wydania: ");
         int day = getInt();
 
-        System.out.println("Język wydania: ");
-        String language= scanner.nextLine();
+        consolePrinter.printLine("Język wydania: ");
+        String language = scanner.nextLine();
 
 
         return new Magazine(title, publisher, language, year, month, day);
     }
 
     public int getInt() {
-        int intNumber = scanner.nextInt();
-        scanner.nextLine();
+        boolean error = true;
+        int intNumber = 0;
+        do {
+            try {
+                intNumber = scanner.nextInt();
+                error = false;
+            } catch (InputMismatchException e) {
+                consolePrinter.printError("Input mismatch");
+            }
+            finally {
+                scanner.nextLine();
+            }
+        } while (error);
+
         return intNumber;
     }
 
     public int getOption() {
-        int userInput = scanner.nextInt();
-        scanner.nextLine();
-        return userInput;
+        return getInt();
+
     }
 
     public void close() {
