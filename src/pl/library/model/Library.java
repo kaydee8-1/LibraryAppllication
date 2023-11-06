@@ -30,16 +30,6 @@ public class Library {
         capacityCounter++;
     }
 
-    public void printAllPublications() {
-        if (capacityCounter == 0)
-            System.out.println("Nie dodano żadnych ksiązaek ani magazynów");
-
-        else {
-            for(int i = 0; i< capacityCounter; ++i) {
-                publications[i].printInfo();
-            }
-        }
-    }
 }
 
 
