@@ -80,7 +80,7 @@ public class LibraryControl {
     private void printMagazines() {
         consolePrinter.printAllMagazines(library.getPublications());
     }
-    private void printAllPublications() {library.printAllPublications();}
+    private void printAllPublications() {consolePrinter.printAllPublications(library.getPublications());}
 
     public void exit()
     {
