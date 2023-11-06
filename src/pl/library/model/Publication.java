@@ -3,6 +3,7 @@ package pl.library.model;
 import java.util.Calendar;
 import java.util.InputMismatchException;
 import java.time.Year;
+import java.util.Objects;
 
 public abstract class Publication {
     private String title;
@@ -43,5 +44,21 @@ public abstract class Publication {
         this.publisher = publisher;
     }
 
-    abstract public void printInfo();
+    @Override
+    abstract public String toString();
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (obj == null || getClass()!= obj.getClass()) return false;
+        Publication publication = (Publication) obj;
+        return Objects.equals(this.title, publication.title) &&
+                Objects.equals(this.publisher, publication.publisher) &&
+                this.year == publication.year;
+
+    }
+    @Override
+    public int hashCode() {
+        return Objects.hash(title, year, publisher);
+    }
 }
