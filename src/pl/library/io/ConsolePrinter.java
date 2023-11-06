@@ -18,7 +18,7 @@ public class ConsolePrinter {
 
         for(Publication p : publications) {
             if (p instanceof Book) {
-                p.printInfo();
+                printLine(p.toString());
                 countBooks++;
             }
         }
@@ -32,7 +32,7 @@ public class ConsolePrinter {
 
         for(Publication p : publications) {
             if (p instanceof Magazine) {
-                p.printInfo();
+                printLine(p.toString());
                 countMagazines++;
             }
         }
@@ -40,5 +40,17 @@ public class ConsolePrinter {
         if (countMagazines == 0)
             printLine("Nie ma żanych magazynów w bibliotece");
 
+    }
+
+    public void printAllPublications(Publication[] publications) {
+        int countPublications = 0;
+
+        for (Publication publication : publications) {
+            printLine(publication.toString());
+            countPublications++;
+        }
+
+        if (countPublications == 0)
+            System.out.println("Nie dodano żadnych ksiązaek ani magazynów");
     }
 }
